@@ -1,10 +1,10 @@
 import { Category } from "src/category/entities/category.entity";
 import { User } from "src/user/entities/user.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class Transaction {
-    @PrimaryColumn({ name: 'transaction_id' })
+    @PrimaryGeneratedColumn({ name: 'transaction_id' })
     id: number;
 
     @Column()
@@ -29,4 +29,5 @@ export class Transaction {
     @ManyToOne(() => Category, (category) => category.transactions)
     @JoinColumn({ name:'category_id '})
     category: Category;
+  length: number;
 }

@@ -14,12 +14,15 @@ export class Category {
     @JoinColumn({ name: "user_id" })
     user: User;
 
+   
+    @OneToMany(() => Transaction, (transaction) => transaction.category)
+    transactions: Transaction[];
+
     @CreateDateColumn()
     createdAt: Date;
 
     @UpdateDateColumn()
     updatedAt: Date;
 
-    @OneToMany(() => Transaction, (transaction) => transaction.category)
-    transactions: Transaction[]
 }
+

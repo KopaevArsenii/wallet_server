@@ -1,4 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  Req,
+  Query,
+} from '@nestjs/common';
 import { TransactionService } from './transaction.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
@@ -12,13 +23,21 @@ export class TransactionController {
   @Get(':type/find')
   @UseGuards(JwtAuthGuard)
   findAllByType(@Req() req, @Param('type') type: string) {
-    return this.transactionService.findAllByType(+req.user.id, type)
+    return this.transactionService.findAllByType(+req.user.id, type);
   }
 
   @Get('pagination')
   @UseGuards(JwtAuthGuard)
-  findAllWithPagination(@Req() req, @Query('page') page:number, @Query('limit') limit:number) {
-    return this.transactionService.findAllWithPagination(+req.user.id, +page, +limit)
+  findAllWithPagination(
+    @Req() req,
+    @Query('page') page: number,
+    @Query('limit') limit: number,
+  ) {
+    return this.transactionService.findAllWithPagination(
+      +req.user.id,
+      +page,
+      +limit,
+    );
   }
 
   @Post()
@@ -39,14 +58,17 @@ export class TransactionController {
     return this.transactionService.findOne(+id);
   }
 
-  @Patch(':type/:id:id')
+  @Patch(':type/:id')
   @UseGuards(JwtAuthGuard, AuthorCuard)
-  update(@Param('id') id: string, @Body() updateTransactionDto: UpdateTransactionDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateTransactionDto: UpdateTransactionDto,
+  ) {
     return this.transactionService.update(+id, updateTransactionDto);
   }
 
-  @Delete(':type/:id')
-  @UseGuards(JwtAuthGuard, AuthorCuard)
+  @Delete('/:id')
+  // @UseGuards(JwtAuthGuard, AuthorCuard)
   remove(@Param('id') id: string) {
     return this.transactionService.remove(+id);
   }
